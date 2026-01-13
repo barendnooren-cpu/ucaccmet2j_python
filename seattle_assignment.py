@@ -38,11 +38,14 @@ print(f'Monthly total precipitation: {total_monthly}')
 
 #dumping results in json file
 data = {
-    "Seattle": 'GHCND:US1WAKG0038',
-    "State": "WA",
-    "Total_monthly_precipitation": [total_monthly],
-    "total_yearly_precipitation": ...,
-    "relative_monthly_precipitation": [...],
-    "relative_yearly_precipitation": ...
+            "Seattle": {
+    "station": 'GHCND:US1WAKG0038',
+    "state": "WA",
+    "total_monthly_precipitation": [total_monthly],
+  
+    }
+
 }
 
+with open('results.json', 'w', encoding='utf-8') as file:
+    json.dump(data, file, indent=4, ensure_ascii=False)
