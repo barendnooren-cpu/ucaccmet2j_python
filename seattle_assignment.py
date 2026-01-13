@@ -18,6 +18,7 @@ with open('stations.csv', encoding='utf-8') as f:
 all_results = {}
 data_rows = stations[1:]
 
+
 for row in data_rows:
     location = row[0]
     state = row[1]
@@ -48,8 +49,10 @@ for row in data_rows:
     # print(f'Monthly total precipitation: {total_monthly}')
 
     # #Calculating yearly precipitation
-    total_yearly_precipitation = sum(total_monthly.values())
+    allresults_locations = []
 
+    total_yearly_precipitation = sum(total_monthly.values())
+    allresults_locations.append(total_yearly_precipitation)
     #Calculating relative monthly precipitation
     relative_monthly_precipitation = {}
 
@@ -64,20 +67,18 @@ for row in data_rows:
             relative_monthly_precipitation[month] = proportion
 
     #calculate relative yearly precipitation
-    total_all_stations = 0
-    for perlocation_data in all_results.
+    total_all_stations = sum(allresults_locations)
+    print(allresults_locations)
+    
 
-#dumping results in json file
-    data = {
-            [location]: {
-        "station": [station_code],
-        "state": [state],
-        "total_monthly_precipitation": [total_monthly],
-        "total_yearly_precipitation": "11180",
-        "relative_monthly_precipitation": [relative_monthly_precipitation]
+# #dumping results in json file
+    all_results[location] = {
+        "station": station_code,
+        "state": state,
+        "total_monthly_precipitation": list(total_monthly.values()),
+        "total_yearly_precipitation": total_yearly_precipitation,
+        "relative_monthly_precipitation": list(relative_monthly_precipitation.values())
             }
 
-    }
-
     with open('results.json', 'w', encoding='utf-8') as file:
-        json.dump(data, file, indent=4, ensure_ascii=False)
+        json.dump(all_results, file, indent=4, ensure_ascii=False)
